@@ -165,6 +165,15 @@ export default function Home() {
               and meaningful collaborations.
             </p>
           </div>
+
+          <div className="mt-10">
+            <a
+              href="mailto:you@example.com"
+              className="border-b border-black pb-1 text-sm transition-opacity hover:opacity-50"
+            >
+              Get in touch
+            </a>
+          </div>
         </div>
       </section>
 
