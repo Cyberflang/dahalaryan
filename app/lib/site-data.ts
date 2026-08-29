@@ -32,6 +32,7 @@ export const nav = [
   { label: "Skills", href: "#skills" },
   { label: "Journey", href: "#journey" },
   { label: "Contact", href: "#contact" },
+  { label: "Forums", href: "/forums" },
 ];
 
 export const hero = {

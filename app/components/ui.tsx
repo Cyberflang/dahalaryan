@@ -185,14 +185,17 @@ export function Card({
   children,
   className = "",
   as: Tag = "div",
+  ...rest
 }: {
   children: ReactNode;
   className?: string;
   as?: ElementType;
+  [key: string]: unknown;
 }) {
   return (
     <Tag
       className={`group relative rounded-2xl border border-line bg-surface/60 p-6 transition-colors duration-300 hover:border-accent/40 ${className}`}
+      {...rest}
     >
       {children}
     </Tag>

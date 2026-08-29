@@ -1,15 +1,19 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, person } from "../lib/site-data";
 import { CloseIcon, MenuIcon } from "./icons";
 import { ThemeToggle } from "./theme";
 import { Badge } from "./ui";
+import { Link } from "./ui";
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState<string>("");
+  const pathname = usePathname();
+  const onHomePage = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -19,7 +23,12 @@ export function Navigation() {
   }, []);
 
   useEffect(() => {
+    // Scroll-spy only applies to on-page anchor links (e.g. "#work"), not
+    // standalone routes like "/forums".
+    if (!onHomePage) return;
+
     const sections = nav
+      .filter((item) => item.href.startsWith("#"))
       .map((item) => document.querySelector(item.href))
       .filter((el): el is Element => Boolean(el));
 
@@ -38,7 +47,7 @@ export function Navigation() {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [onHomePage]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -59,32 +68,38 @@ export function Navigation() {
         aria-label="Primary"
         className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8"
       >
-        <a
-          href="#"
+        <Link
+          href="/"
           className="font-mono text-sm font-medium tracking-tight text-fg transition-opacity hover:opacity-70"
         >
           {person.name}
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-8 md:flex">
           <ul className="flex items-center gap-7 text-sm text-muted">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className={`relative py-1 transition-colors hover:text-fg ${
-                    activeId === item.href ? "text-fg" : ""
-                  }`}
-                >
-                  {item.label}
-                  <span
-                    className={`absolute -bottom-[3px] left-0 h-px w-full bg-accent transition-opacity ${
-                      activeId === item.href ? "opacity-100" : "opacity-0"
+            {nav.map((item) => {
+              const isPageLink = !item.href.startsWith("#");
+              const isActive = isPageLink
+                ? pathname?.startsWith(item.href)
+                : onHomePage && activeId === item.href;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={onHomePage || isPageLink ? item.href : `/${item.href}`}
+                    className={`relative py-1 transition-colors hover:text-fg ${
+                      isActive ? "text-fg" : ""
                     }`}
-                  />
-                </a>
-              </li>
-            ))}
+                  >
+                    {item.label}
+                    <span
+                      className={`absolute -bottom-[3px] left-0 h-px w-full bg-accent transition-opacity ${
+                        isActive ? "opacity-100" : "opacity-0"
+                      }`}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="flex items-center gap-3">
@@ -117,17 +132,20 @@ export function Navigation() {
         }`}
       >
         <ul className="flex flex-col gap-1 px-5 py-4">
-          {nav.map((item) => (
-            <li key={item.href}>
-              <a
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className="block rounded-lg px-3 py-3 text-base text-fg transition-colors hover:bg-surface"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
+          {nav.map((item) => {
+            const isPageLink = !item.href.startsWith("#");
+            return (
+              <li key={item.href}>
+                <Link
+                  href={onHomePage || isPageLink ? item.href : `/${item.href}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="block rounded-lg px-3 py-3 text-base text-fg transition-colors hover:bg-surface"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
           <li className="px-3 pt-2">
             <Badge dot>{person.availability.isAvailable ? "Available" : "Busy"}</Badge>
           </li>
