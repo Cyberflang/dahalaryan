@@ -1,4 +1,4 @@
-import { marqueeItems, skillGroups } from "../../lib/site-data";
+import { skillGroups } from "../../lib/site-data";
 import { BlocksIcon, CodeIcon, TerminalIcon } from "../icons";
 import { Card, Container, Reveal, Section, SectionHeading } from "../ui";
 
@@ -39,35 +39,7 @@ export function Skills() {
             );
           })}
         </div>
-
-        <Marquee />
       </Container>
     </Section>
-  );
-}
-
-function Marquee() {
-  // Duplicate the list so the CSS-driven scroll can loop seamlessly.
-  const items = [...marqueeItems, ...marqueeItems];
-
-  return (
-    <div
-      aria-hidden="true"
-      className="group relative mt-14 overflow-hidden rounded-2xl border border-line bg-surface/40 py-5"
-    >
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-surface to-transparent sm:w-24" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-surface to-transparent sm:w-24" />
-
-      <div className="marquee-track flex w-max items-center gap-10 group-hover:[animation-play-state:paused]">
-        {items.map((item, i) => (
-          <span
-            key={`${item}-${i}`}
-            className="font-mono text-sm tracking-tight text-muted"
-          >
-            {item}
-          </span>
-        ))}
-      </div>
-    </div>
   );
 }

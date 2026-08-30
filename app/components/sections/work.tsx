@@ -1,156 +1,89 @@
-"use client";
-
-import { useMemo, useState } from "react";
-import { projectFilters, projects } from "../../lib/site-data";
+import { projects } from "../../lib/site-data";
 import { ArrowUpRightIcon } from "../icons";
-import { Card, Container, Reveal, Section, SectionHeading } from "../ui";
+import { Container, Link, Reveal, Section, SectionHeading } from "../ui";
 
 export function Work() {
-  const [filter, setFilter] = useState<(typeof projectFilters)[number]>("All");
-
-  const filtered = useMemo(
-    () => (filter === "All" ? projects : projects.filter((p) => p.category === filter)),
-    [filter]
-  );
-
   return (
     <Section id="work">
       <Container>
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-          <SectionHeading
-            eyebrow="Work"
-            title="Selected projects"
-            description="A mix of web applications, community tools, and infrastructure I've built."
-          />
+        <SectionHeading
+          eyebrow="Work"
+          title="Selected projects"
+          description="What I've built and what I'm currently maintaining, mostly around the Cyflixel community."
+        />
 
-          <div
-            role="group"
-            aria-label="Filter projects by category"
-            className="flex flex-wrap gap-2"
-          >
-            {projectFilters.map((item) => {
-              const active = item === filter;
-              return (
-                <button
-                  key={item}
-                  type="button"
-                  aria-pressed={active}
-                  onClick={() => setFilter(item)}
-                  className={`rounded-full border px-3.5 py-1.5 font-mono text-xs transition-colors ${
-                    active
-                      ? "border-accent bg-accent/10 text-accent"
-                      : "border-line text-muted hover:border-accent/40 hover:text-fg"
-                  }`}
-                >
-                  {item}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((project, i) => (
-            <Reveal key={project.title} delay={i * 70}>
-              <Card className="flex h-full flex-col">
-                <ProjectVisual variant={project.visual} />
-
-                <div className="mt-5 flex items-start justify-between gap-3">
-                  <h3 className="text-lg font-medium tracking-tight text-fg">
-                    {project.title}
-                  </h3>
-                  {project.href ? (
-                    <ArrowUpRightIcon
-                      width={16}
-                      height={16}
-                      className="mt-1 shrink-0 text-muted transition-colors group-hover:text-accent"
-                    />
-                  ) : null}
-                </div>
-
-                <p className="mt-2 text-sm leading-6 text-muted">{project.description}</p>
-
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-line px-2.5 py-1 font-mono text-[11px] text-muted"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-5 flex items-center justify-between border-t border-line pt-4 font-mono text-xs text-muted">
-                  <span>{project.type}</span>
-                  <span>{project.year}</span>
-                </div>
-              </Card>
+        <ol className="divide-y divide-line border-y border-line">
+          {projects.map((project, i) => (
+            <Reveal key={project.title} delay={i * 70} as="li">
+              <ProjectRow project={project} index={i} />
             </Reveal>
           ))}
-        </div>
+        </ol>
       </Container>
     </Section>
   );
 }
 
-function ProjectVisual({ variant }: { variant: "discord" | "minecraft" | "terminal" }) {
-  if (variant === "discord") {
-    return (
-      <div
-        aria-hidden="true"
-        className="flex h-32 flex-col justify-end gap-2 overflow-hidden rounded-xl border border-line bg-bg/60 p-4"
-      >
-        <div className="flex items-center gap-2">
-          <span className="h-6 w-6 shrink-0 rounded-full bg-accent/25" />
-          <span className="h-2.5 w-2/3 rounded-full bg-line" />
+function ProjectRow({
+  project,
+  index,
+}: {
+  project: (typeof projects)[number];
+  index: number;
+}) {
+  const content = (
+    <div className="group flex flex-col gap-4 py-7 sm:flex-row sm:items-center sm:gap-8">
+      <span className="font-mono text-sm text-muted sm:w-16 sm:shrink-0">
+        {String(index + 1).padStart(2, "0")}
+      </span>
+
+      <div className="flex-1">
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <h3 className="text-lg font-medium tracking-tight text-fg transition-colors group-hover:text-accent">
+            {project.title}
+          </h3>
+          <span className="font-mono text-xs text-muted">{project.category}</span>
+          <span className="font-mono text-xs text-muted">{project.year}</span>
         </div>
-        <div className="flex items-center gap-2 pl-8">
-          <span className="h-2.5 w-1/2 rounded-full bg-accent/30" />
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="h-6 w-6 shrink-0 rounded-full bg-line" />
-          <span className="h-2.5 w-1/3 rounded-full bg-line" />
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{project.description}</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {project.tech.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full border border-line px-2.5 py-1 font-mono text-[11px] text-muted"
+            >
+              {tech}
+            </span>
+          ))}
         </div>
       </div>
-    );
-  }
 
-  if (variant === "minecraft") {
-    return (
-      <div
-        aria-hidden="true"
-        className="grid h-32 grid-cols-6 gap-1 overflow-hidden rounded-xl border border-line bg-bg/60 p-3"
-      >
-        {Array.from({ length: 24 }).map((_, i) => (
-          <span
-            key={i}
-            className="rounded-[3px]"
-            style={{
-              background:
-                i % 5 === 0
-                  ? "color-mix(in srgb, var(--color-accent) 45%, transparent)"
-                  : i % 3 === 0
-                    ? "color-mix(in srgb, var(--color-accent) 18%, transparent)"
-                    : "var(--color-line)",
-            }}
+      <div className="flex items-center gap-2 font-mono text-xs text-muted sm:w-32 sm:shrink-0 sm:justify-end">
+        <span
+          aria-hidden="true"
+          className={`h-1.5 w-1.5 rounded-full ${
+            project.status === "Active" ? "bg-accent" : "bg-muted"
+          }`}
+        />
+        {project.status}
+        {project.href ? (
+          <ArrowUpRightIcon
+            width={14}
+            height={14}
+            className="text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
           />
-        ))}
+        ) : null}
       </div>
-    );
-  }
-
-  return (
-    <div
-      aria-hidden="true"
-      className="h-32 overflow-hidden rounded-xl border border-line bg-bg/60 p-4 font-mono text-[11px] leading-5 text-muted"
-    >
-      <p>
-        <span className="text-accent">$</span> build --target web
-      </p>
-      <p className="text-muted/70">→ compiling routes...</p>
-      <p className="text-muted/70">→ optimizing assets...</p>
-      <p className="text-accent">✓ ready</p>
     </div>
   );
+
+  if (project.href) {
+    return (
+      <Link href={project.href} className="block focus-visible:outline-none">
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
 }

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { nav, person } from "../lib/site-data";
 import { CloseIcon, MenuIcon } from "./icons";
 import { ThemeToggle } from "./theme";
-import { Badge } from "./ui";
 import { Link } from "./ui";
 
 export function Navigation() {
@@ -102,12 +101,7 @@ export function Navigation() {
             })}
           </ul>
 
-          <div className="flex items-center gap-3">
-            <Badge dot>
-              {person.availability.isAvailable ? "Available" : "Busy"}
-            </Badge>
-            <ThemeToggle />
-          </div>
+          <ThemeToggle />
         </div>
 
         <div className="flex items-center gap-3 md:hidden">
@@ -146,9 +140,6 @@ export function Navigation() {
               </li>
             );
           })}
-          <li className="px-3 pt-2">
-            <Badge dot>{person.availability.isAvailable ? "Available" : "Busy"}</Badge>
-          </li>
         </ul>
       </div>
     </header>
