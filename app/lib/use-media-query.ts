@@ -30,7 +30,3 @@ function getSnapshot(query: string) {
 export function usePrefersReducedMotion(): boolean {
   return useMediaQuery("(prefers-reduced-motion: reduce)");
 }
-
-export function useIsTouchDevice(): boolean {
-  return useMediaQuery("(pointer: coarse)");
-}
