@@ -2,31 +2,51 @@
 
 import { useSyncExternalStore } from "react";
 
+type Listener = () => void;
+
+function subscribe(query: string, callback: Listener): () => void {
+  if (typeof window === "undefined") {
+    return () => {};
+  }
+
+  const mediaQuery = window.matchMedia(query);
+
+  const handleChange = () => {
+    callback();
+  };
+
+  mediaQuery.addEventListener("change", handleChange);
+
+  return () => {
+    mediaQuery.removeEventListener("change", handleChange);
+  };
+}
+
+function getSnapshot(query: string): boolean {
+  return typeof window !== "undefined" && window.matchMedia(query).matches;
+}
+
+function getServerSnapshot(): boolean {
+  return false;
+}
+
 /**
- * SSR-safe media query hook built on useSyncExternalStore.
- * Avoids the "set state synchronously inside useEffect" lint issue and
- * avoids hydration mismatches by returning `false` on the server snapshot.
+ * SSR-safe media query hook using useSyncExternalStore.
+ *
+ * Returns false during SSR and uses matchMedia in the browser,
+ * preventing hydration mismatches.
  */
 export function useMediaQuery(query: string): boolean {
   return useSyncExternalStore(
-    (onStoreChange) => subscribe(query, onStoreChange),
+    (callback) => subscribe(query, callback),
     () => getSnapshot(query),
-    () => false
+    getServerSnapshot
   );
 }
 
-function subscribe(query: string, callback: () => void) {
-  if (typeof window === "undefined") return () => {};
-  const mql = window.matchMedia(query);
-  mql.addEventListener("change", callback);
-  return () => mql.removeEventListener("change", callback);
-}
-
-function getSnapshot(query: string) {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia(query).matches;
-}
-
+/**
+ * Returns true when the user prefers reduced motion.
+ */
 export function usePrefersReducedMotion(): boolean {
   return useMediaQuery("(prefers-reduced-motion: reduce)");
 }
