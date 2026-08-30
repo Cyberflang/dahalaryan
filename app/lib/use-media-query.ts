@@ -32,9 +32,6 @@ function getServerSnapshot(): boolean {
 
 /**
  * SSR-safe media query hook using useSyncExternalStore.
- *
- * Returns false during SSR and uses matchMedia in the browser,
- * preventing hydration mismatches.
  */
 export function useMediaQuery(query: string): boolean {
   return useSyncExternalStore(
@@ -49,4 +46,12 @@ export function useMediaQuery(query: string): boolean {
  */
 export function usePrefersReducedMotion(): boolean {
   return useMediaQuery("(prefers-reduced-motion: reduce)");
+}
+
+/**
+ * Returns true when the primary input is a coarse pointer,
+ * such as a touchscreen.
+ */
+export function useIsTouchDevice(): boolean {
+  return useMediaQuery("(pointer: coarse)");
 }
