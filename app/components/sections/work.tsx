@@ -32,8 +32,8 @@ function ProjectRow({
   index: number;
 }) {
   const content = (
-    <div className="group flex flex-col gap-4 py-7 sm:flex-row sm:items-center sm:gap-8">
-      <span className="font-mono text-sm text-muted sm:w-16 sm:shrink-0">
+    <div className="group flex flex-col gap-4 py-7 transition-colors duration-200 sm:flex-row sm:items-center sm:gap-8 sm:-mx-5 sm:px-5 sm:hover:bg-surface/50 sm:rounded-xl">
+      <span className="font-mono text-sm text-muted transition-colors duration-200 group-hover:text-accent sm:w-16 sm:shrink-0">
         {String(index + 1).padStart(2, "0")}
       </span>
 

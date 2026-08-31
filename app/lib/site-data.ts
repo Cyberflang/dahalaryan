@@ -41,6 +41,7 @@ export const hero = {
   subhead: "Developer, based in Nepal.",
   description:
     "I build web applications, Discord bots, and the community infrastructure around them — mostly TypeScript, Next.js, and Node.js. Right now that's Cyflixel's bot, its forums, and the Minecraft server systems behind it.",
+  stack: ["TypeScript", "Next.js", "Node.js", "Discord.js"],
 };
 
 export type ProjectCategory = "Web" | "Discord" | "Minecraft";
