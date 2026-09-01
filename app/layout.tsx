@@ -15,37 +15,41 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = "https://dahalaryan.com.np";
-const title = `${person.name} — ${person.role}`;
+
+const title = person.name;
+
 const description =
   "I build digital experiences, software, and communities — web applications, Discord bots, and the systems that hold it all together.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: {
-    default: title,
-    template: `%s — ${person.name}`,
-  },
-  description,
+  title: title,
+  description: description,
+
   alternates: {
     canonical: siteUrl,
   },
+
   openGraph: {
-    title,
-    description,
+    title: title,
+    description: description,
     url: siteUrl,
     siteName: person.name,
     type: "website",
     locale: "en_US",
   },
+
   twitter: {
     card: "summary",
-    title,
-    description,
+    title: title,
+    description: description,
   },
+
   robots: {
     index: true,
     follow: true,
   },
+
   icons: {
     icon: "/favicon.ico",
   },
@@ -53,8 +57,14 @@ export const metadata: Metadata = {
 
 export const viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0b0c0e" },
-    { media: "(prefers-color-scheme: light)", color: "#fbfaf8" },
+    {
+      media: "(prefers-color-scheme: dark)",
+      color: "#0b0c0e",
+    },
+    {
+      media: "(prefers-color-scheme: light)",
+      color: "#fbfaf8",
+    },
   ],
 };
 
@@ -70,7 +80,9 @@ const personJsonLd = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: LayoutProps<"/">) {
   return (
     <html
       lang="en"
@@ -78,13 +90,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        {/* Applies the persisted/system theme before paint to avoid a flash. */}
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: themeInitScript,
+          }}
+        />
+
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd),
+          }}
         />
       </head>
+
       <body className="flex min-h-full flex-col bg-bg font-sans text-fg">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
