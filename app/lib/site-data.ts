@@ -11,7 +11,6 @@
 export const person = {
   name: "Aryan Dahal",
   shortName: "Aryan",
-  role: "Developer",
   domain: "dahalaryan.com.np",
   location: "Nepal",
   // Set this once a real address exists — the contact section and footer
