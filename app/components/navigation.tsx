@@ -1,116 +1,47 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { nav, person } from "../lib/site-data";
 import { CloseIcon, MenuIcon } from "./icons";
 import { ThemeToggle } from "./theme";
 import { Link } from "./ui";
 
 export function Navigation() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeId, setActiveId] = useState<string>("");
   const pathname = usePathname();
   const onHomePage = pathname === "/";
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    // Scroll-spy only applies to on-page anchor links (e.g. "#work"), not
-    // standalone routes like "/forums".
-    if (!onHomePage) return;
-
-    const sections = nav
-      .filter((item) => item.href.startsWith("#"))
-      .map((item) => document.querySelector(item.href))
-      .filter((el): el is Element => Boolean(el));
-
-    if (sections.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(`#${entry.target.id}`);
-          }
-        });
-      },
-      { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, [onHomePage]);
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-line bg-bg/75 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
-      }`}
-    >
-      <nav
-        aria-label="Primary"
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8"
-      >
-        <Link
-          href="/"
-          className="font-mono text-sm font-medium tracking-tight text-fg transition-opacity hover:opacity-70"
-        >
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-line/80 bg-bg/90 backdrop-blur-md">
+      <nav aria-label="Primary" className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5 sm:px-8">
+        <Link href="/" className="text-sm font-semibold tracking-tight text-fg hover:opacity-70">
           {person.name}
         </Link>
 
-        <div className="hidden items-center gap-8 md:flex">
-          <ul className="flex items-center gap-7 text-sm text-muted">
+        <div className="hidden items-center gap-7 md:flex">
+          <ul className="flex items-center gap-6 text-sm text-muted">
             {nav.map((item) => {
               const isPageLink = !item.href.startsWith("#");
-              const isActive = isPageLink
-                ? pathname?.startsWith(item.href)
-                : onHomePage && activeId === item.href;
+              const href = onHomePage || isPageLink ? item.href : `/${item.href}`;
               return (
                 <li key={item.href}>
-                  <Link
-                    href={onHomePage || isPageLink ? item.href : `/${item.href}`}
-                    className={`relative py-1 transition-colors hover:text-fg ${
-                      isActive ? "text-fg" : ""
-                    }`}
-                  >
+                  <Link href={href} className="transition-colors hover:text-fg">
                     {item.label}
-                    <span
-                      className={`absolute -bottom-[3px] left-0 h-px w-full bg-accent transition-opacity ${
-                        isActive ? "opacity-100" : "opacity-0"
-                      }`}
-                    />
                   </Link>
                 </li>
               );
             })}
           </ul>
-
           <ThemeToggle />
         </div>
 
-        <div className="flex items-center gap-3 md:hidden">
+        <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
           <button
             type="button"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
             className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-fg"
           >
@@ -119,29 +50,27 @@ export function Navigation() {
         </div>
       </nav>
 
-      <div
-        id="mobile-menu"
-        className={`overflow-hidden border-b border-line bg-bg/95 backdrop-blur-md transition-[max-height,opacity] duration-300 ease-out md:hidden ${
-          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <ul className="flex flex-col gap-1 px-5 py-4">
-          {nav.map((item) => {
-            const isPageLink = !item.href.startsWith("#");
-            return (
-              <li key={item.href}>
-                <Link
-                  href={onHomePage || isPageLink ? item.href : `/${item.href}`}
-                  onClick={() => setMenuOpen(false)}
-                  className="block rounded-lg px-3 py-3 text-base text-fg transition-colors hover:bg-surface"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      {menuOpen ? (
+        <div className="border-t border-line bg-bg md:hidden">
+          <ul className="mx-auto max-w-5xl px-5 py-3 sm:px-8">
+            {nav.map((item) => {
+              const isPageLink = !item.href.startsWith("#");
+              const href = onHomePage || isPageLink ? item.href : `/${item.href}`;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={href}
+                    onClick={() => setMenuOpen(false)}
+                    className="block border-b border-line py-3 text-sm text-fg last:border-b-0"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ) : null}
     </header>
   );
 }
