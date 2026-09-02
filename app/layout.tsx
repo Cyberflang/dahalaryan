@@ -37,19 +37,27 @@ export const metadata: Metadata = {
     siteName: person.name,
     type: "website",
     locale: "en_US",
-    images: [{ url: "/aryan-photo.jpg", width: 768, height: 768, alt: person.name }],
+    images: ["/images/aryan.jpg"],
   },
 
   twitter: {
     card: "summary",
     title: title,
     description: description,
-    images: ["/aryan-photo.jpg"],
+    images: ["/images/aryan.jpg"],
   },
 
   robots: {
     index: true,
     follow: true,
+  },
+
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -71,7 +79,7 @@ const personJsonLd = {
   "@type": "Person",
   name: person.name,
   url: siteUrl,
-  ...(person.role ? { jobTitle: person.role } : {}),
+  jobTitle: person.role,
   address: {
     "@type": "PostalAddress",
     addressCountry: "NP",

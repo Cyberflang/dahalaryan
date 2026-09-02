@@ -1,5 +1,5 @@
 import { person, socials } from "../lib/site-data";
-import { ArrowUpRightIcon, DiscordIcon, InstagramIcon, MailIcon, XIcon } from "./icons";
+import { DiscordIcon, InstagramIcon, MailIcon, XIcon } from "./icons";
 
 const iconLinkClasses =
   "inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent/60 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50";
@@ -73,10 +73,7 @@ export function ContactMethods() {
             <DiscordIcon width={16} height={16} className="text-muted group-hover:text-accent" />
             {socials.discord.label}
           </span>
-          <span className="flex items-center gap-2 font-mono text-sm text-muted group-hover:text-accent">
-            Join server
-            <ArrowUpRightIcon width={14} height={14} />
-          </span>
+          <span className="font-mono text-sm text-muted group-hover:text-accent">Join server</span>
         </a>
       </li>
 

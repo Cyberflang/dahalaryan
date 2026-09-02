@@ -3,6 +3,7 @@ import { Container, Reveal, Section, SectionHeading } from "../ui";
 
 const facts: Array<{ label: string; value: string }> = [
   { label: "Based in", value: person.location },
+  { label: "Works with", value: hero.stack.join(", ") },
   { label: "Learning", value: focus.learning.description },
   { label: "Interested in", value: focus.interested.description },
 ];
@@ -21,19 +22,6 @@ export function About() {
                   <p className="text-base leading-7 text-muted">{paragraph}</p>
                 </Reveal>
               ))}
-
-              <Reveal delay={about.paragraphs.length * 80}>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {hero.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-full border border-line px-2.5 py-1 font-mono text-[11px] text-muted"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </Reveal>
             </div>
 
             <Reveal delay={240}>

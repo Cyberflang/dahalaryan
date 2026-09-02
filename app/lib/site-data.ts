@@ -42,12 +42,12 @@ export const socials = {
 
 export const nav = [
   {
-    label: "About",
-    href: "#about",
-  },
-  {
     label: "Work",
     href: "#work",
+  },
+  {
+    label: "About",
+    href: "#about",
   },
   {
     label: "Contact",
@@ -144,6 +144,13 @@ export const about = {
 };
 
 export const focus = {
+  building: {
+    title: "Building",
+
+    description:
+      "Cyflixel Bot, Cyflixel Forums, and the Minecraft server systems behind the Cyflixel community.",
+  },
+
   learning: {
     title: "Learning",
 
