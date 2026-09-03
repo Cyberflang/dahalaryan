@@ -16,12 +16,13 @@ export function generateStaticParams() {
   return allCategories.map((category) => ({ category: category.slug }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { category: string };
-}): Metadata {
-  const category = getCategory(params.category);
+  params: Promise<{ category: string }>;
+}): Promise<Metadata> {
+  const { category: categorySlug } = await params;
+  const category = getCategory(categorySlug);
   if (!category) return {};
   return {
     title: category.name,
@@ -29,12 +30,13 @@ export function generateMetadata({
   };
 }
 
-export default function CategoryPage({
+export default async function CategoryPage({
   params,
 }: {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }) {
-  const category = getCategory(params.category);
+  const { category: categorySlug } = await params;
+  const category = getCategory(categorySlug);
   if (!category) notFound();
 
   const group = getCategoryGroupFor(category.slug);

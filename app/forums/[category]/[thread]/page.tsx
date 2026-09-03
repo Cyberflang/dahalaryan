@@ -22,12 +22,13 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { category: string; thread: string };
-}): Metadata {
-  const thread = getThread(params.category, params.thread);
+  params: Promise<{ category: string; thread: string }>;
+}): Promise<Metadata> {
+  const { category: categorySlug, thread: threadSlug } = await params;
+  const thread = getThread(categorySlug, threadSlug);
   if (!thread) return {};
   return {
     title: thread.title,
@@ -35,13 +36,14 @@ export function generateMetadata({
   };
 }
 
-export default function ThreadPage({
+export default async function ThreadPage({
   params,
 }: {
-  params: { category: string; thread: string };
+  params: Promise<{ category: string; thread: string }>;
 }) {
-  const category = getCategory(params.category);
-  const thread = getThread(params.category, params.thread);
+  const { category: categorySlug, thread: threadSlug } = await params;
+  const category = getCategory(categorySlug);
+  const thread = getThread(categorySlug, threadSlug);
   if (!category || !thread) notFound();
 
   const author = getUser(thread.authorUsername);

@@ -130,6 +130,17 @@ export const projects: Array<{
   },
 ];
 
+// Derived from `projects` above (one group per project category) so this
+// stays in sync with the tech actually listed there instead of duplicating it.
+export const skillGroups: Array<{ title: string; items: string[] }> = (
+  ["Web", "Discord", "Minecraft"] as ProjectCategory[]
+).map((category) => ({
+  title: category === "Discord" ? "Discord & Backend" : category === "Minecraft" ? "Minecraft & Systems" : category,
+  items: Array.from(
+    new Set(projects.filter((project) => project.category === category).flatMap((project) => project.tech)),
+  ),
+}));
+
 export const about = {
   lead:
     "I'm a developer who likes figuring out how things work, then building better versions of them.",

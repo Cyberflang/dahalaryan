@@ -19,12 +19,13 @@ export function generateStaticParams() {
   return users.map((user) => ({ username: user.username }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { username: string };
-}): Metadata {
-  const user = getUser(params.username);
+  params: Promise<{ username: string }>;
+}): Promise<Metadata> {
+  const { username } = await params;
+  const user = getUser(username);
   if (!user) return {};
   return {
     title: user.displayName,
@@ -32,12 +33,13 @@ export function generateMetadata({
   };
 }
 
-export default function ProfilePage({
+export default async function ProfilePage({
   params,
 }: {
-  params: { username: string };
+  params: Promise<{ username: string }>;
 }) {
-  const user = getUser(params.username);
+  const { username } = await params;
+  const user = getUser(username);
   if (!user) notFound();
 
   const recentThreads = threads
