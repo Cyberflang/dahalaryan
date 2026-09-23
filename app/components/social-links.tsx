@@ -1,5 +1,5 @@
 import { person, socials } from "../lib/site-data";
-import { DiscordIcon, InstagramIcon, MailIcon, XIcon } from "./icons";
+import { MailIcon, TelegramIcon, XIcon } from "./icons";
 
 const iconLinkClasses =
   "inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent/60 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50";
@@ -9,13 +9,13 @@ export function SocialIconRow({ className = "" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <a
-        href={socials.discord.href}
+        href={socials.telegram.href}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={socials.discord.label}
+        aria-label={socials.telegram.label}
         className={iconLinkClasses}
       >
-        <DiscordIcon width={16} height={16} />
+        <TelegramIcon width={16} height={16} />
       </a>
 
       <a
@@ -26,16 +26,6 @@ export function SocialIconRow({ className = "" }: { className?: string }) {
         className={iconLinkClasses}
       >
         <XIcon width={16} height={16} />
-      </a>
-
-      <a
-        href={socials.instagram.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`${socials.instagram.label}, @${socials.instagram.username}`}
-        className={iconLinkClasses}
-      >
-        <InstagramIcon width={16} height={16} />
       </a>
     </div>
   );
@@ -64,16 +54,16 @@ export function ContactMethods() {
 
       <li>
         <a
-          href={socials.discord.href}
+          href={socials.telegram.href}
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center justify-between gap-4 py-4 transition-colors hover:text-accent"
         >
           <span className="flex items-center gap-3 text-sm text-fg group-hover:text-accent">
-            <DiscordIcon width={16} height={16} className="text-muted group-hover:text-accent" />
-            {socials.discord.label}
+            <TelegramIcon width={16} height={16} className="text-muted group-hover:text-accent" />
+            {socials.telegram.label}
           </span>
-          <span className="font-mono text-sm text-muted group-hover:text-accent">Join server</span>
+          <span className="font-mono text-sm text-muted group-hover:text-accent">Message</span>
         </a>
       </li>
 
@@ -90,23 +80,6 @@ export function ContactMethods() {
           </span>
           <span className="font-mono text-sm text-muted group-hover:text-accent">
             @{socials.x.username}
-          </span>
-        </a>
-      </li>
-
-      <li>
-        <a
-          href={socials.instagram.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex items-center justify-between gap-4 py-4 transition-colors hover:text-accent"
-        >
-          <span className="flex items-center gap-3 text-sm text-fg group-hover:text-accent">
-            <InstagramIcon width={16} height={16} className="text-muted group-hover:text-accent" />
-            {socials.instagram.label}
-          </span>
-          <span className="font-mono text-sm text-muted group-hover:text-accent">
-            @{socials.instagram.username}
           </span>
         </a>
       </li>

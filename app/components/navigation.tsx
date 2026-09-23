@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, person, socials } from "../lib/site-data";
-import { CloseIcon, DiscordIcon, MenuIcon } from "./icons";
+import { CloseIcon, MenuIcon, TelegramIcon } from "./icons";
 import { ThemeToggle } from "./theme";
 import { Link } from "./ui";
 
@@ -102,13 +102,14 @@ export function Navigation() {
           </ul>
 
           <a
-            href={socials.discord.href}
+            href={socials.telegram.href}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`${socials.telegram.label} (opens in a new tab)`}
             className="inline-flex items-center gap-2 rounded-full border border-line px-3.5 py-1.5 text-sm text-muted transition-colors hover:border-accent/60 hover:text-accent"
           >
-            <DiscordIcon width={14} height={14} />
-            Discord
+            <TelegramIcon width={14} height={14} />
+            Telegram
           </a>
 
           <ThemeToggle />
@@ -152,14 +153,15 @@ export function Navigation() {
           })}
           <li>
             <a
-              href={socials.discord.href}
+              href={socials.telegram.href}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${socials.telegram.label} (opens in a new tab)`}
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-2 rounded-lg px-3 py-3 text-base text-fg transition-colors hover:bg-surface"
             >
-              <DiscordIcon width={16} height={16} />
-              Discord
+              <TelegramIcon width={16} height={16} />
+              Telegram
             </a>
           </li>
         </ul>

@@ -22,10 +22,10 @@ export function GithubIcon(props: IconProps) {
   );
 }
 
-export function DiscordIcon(props: IconProps) {
+export function TelegramIcon(props: IconProps) {
   return (
-    <svg {...base} viewBox="0 0 28 20" {...props}>
-      <path d="M23.7 2.1A22.6 22.6 0 0 0 18.3.4l-.3.5a15.7 15.7 0 0 1 4.6 1.7 17.4 17.4 0 0 0-15.2 0A15.7 15.7 0 0 1 12 .9l-.3-.5a22.6 22.6 0 0 0-5.4 1.7C2.5 7.1 1.6 12 2 16.8a19 19 0 0 0 5.8 3l1.2-1.9a11.6 11.6 0 0 1-1.9-.9l.5-.4a15.3 15.3 0 0 0 12.8 0l.5.4a11.6 11.6 0 0 1-1.9.9l1.2 1.9a19 19 0 0 0 5.8-3c.5-5.6-1-10.5-4.3-14.7ZM10 13.8c-1 0-1.8-1-1.8-2.1 0-1.2.8-2.1 1.8-2.1s1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1Zm7.9 0c-1 0-1.8-1-1.8-2.1 0-1.2.8-2.1 1.8-2.1s1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1Z" />
+    <svg {...base} viewBox="0 0 24 24" fill="currentColor" stroke="none" {...props}>
+      <path d="M21.5 3.5 2.7 11c-.9.35-.9 1.63.02 1.95l4.4 1.5 1.7 5.3c.2.63 1 .82 1.47.35l2.5-2.5 4.4 3.25c.7.5 1.7.13 1.9-.7l3.3-14.7c.2-.9-.7-1.65-1.4-1.4Zm-3.4 3.3-8.4 7.5-.3 3.1-1.4-4.3 10-6.9c.2-.15.4.1.1.6Z" />
     </svg>
   );
 }
@@ -41,16 +41,6 @@ export function TwitterIcon(props: IconProps) {
 // Alias — the glyph above is the current X mark, kept under both names so
 // call sites can use whichever reads more clearly.
 export const XIcon = TwitterIcon;
-
-export function InstagramIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
 
 export function MailIcon(props: IconProps) {
   return (

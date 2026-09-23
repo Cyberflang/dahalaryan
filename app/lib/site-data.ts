@@ -9,8 +9,8 @@
 // ============================================================================
 
 export const person = {
-  name: "Aryan Dahal",
-  shortName: "Aryan",
+  name: "James Cyflixel",
+  shortName: "James",
   role: "",
   domain: "dahalaryan.com.np",
   location: "Nepal",
@@ -24,21 +24,15 @@ export const person = {
 export const siteUrl = "https://dahalaryan.com.np";
 
 export const socials = {
-  discord: {
-    label: "Discord",
-    href: "https://discord.gg/KwAmfyJsKp",
+  telegram: {
+    label: "Telegram",
+    href: "https://t.me/James_Cyflixel",
   },
 
   x: {
     label: "X",
-    username: "James_CFXL",
-    href: "https://x.com/James_CFXL",
-  },
-
-  instagram: {
-    label: "Instagram",
-    username: "not_aryan333",
-    href: "https://instagram.com/not_aryan333",
+    username: "James_Cyflixel",
+    href: "https://x.com/James_Cyflixel",
   },
 };
 
@@ -62,7 +56,7 @@ export const nav = [
 ];
 
 export const hero = {
-  headline: "Aryan Dahal",
+  headline: "James Cyflixel",
 
   subhead: "Developer, based in Nepal.",
 
@@ -193,7 +187,7 @@ export const contact = {
   headline: "Let's build something useful.",
 
   subtext:
-    "Reach me through Discord, X, or Instagram.",
+    "Reach me through Telegram or X.",
 };
 
 export const footer = {

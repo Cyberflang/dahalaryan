@@ -1,4 +1,3 @@
-import { BackToTop } from "./components/back-to-top";
 import { Footer } from "./components/footer";
 import { Navigation } from "./components/navigation";
 import { About } from "./components/sections/about";
@@ -19,7 +18,6 @@ export default function Home() {
       </main>
 
       <Footer />
-      <BackToTop />
     </>
   );
 }
