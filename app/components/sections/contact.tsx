@@ -4,7 +4,7 @@ import { Container, Reveal, Section } from "../ui";
 
 export function Contact() {
   return (
-    <Section id="contact">
+    <Section id="contact" index="04">
       <Container>
         <Reveal>
           <div className="flex flex-col items-start gap-4">

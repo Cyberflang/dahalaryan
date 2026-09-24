@@ -3,7 +3,7 @@ import { Container, Reveal, Section, SectionHeading } from "../ui";
 
 export function Skills() {
   return (
-    <Section id="skills">
+    <Section id="skills" index="02">
       <Container>
         <SectionHeading
           eyebrow="Skills"
@@ -22,7 +22,7 @@ export function Skills() {
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className="rounded-full border border-line px-3 py-1.5 text-sm text-fg/90"
+                      className="rounded-full border border-line px-3 py-1.5 text-sm text-fg/90 transition-colors duration-200 hover:border-accent/50 hover:bg-accent/[0.06] hover:text-accent"
                     >
                       {item}
                     </li>

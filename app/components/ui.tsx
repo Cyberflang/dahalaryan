@@ -35,17 +35,27 @@ export function Section({
   children,
   className = "",
   border = true,
+  index,
 }: {
   id?: string;
   children: ReactNode;
   className?: string;
   border?: boolean;
+  index?: string;
 }) {
   return (
     <section
       id={id}
       className={`relative py-20 sm:py-28 ${border ? "border-t border-line" : ""} ${className}`}
     >
+      {index ? (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute right-5 top-14 -z-10 hidden select-none font-mono text-[7rem] font-medium leading-none text-fg/[0.03] sm:right-8 sm:top-16 sm:block sm:text-[9rem]"
+        >
+          {index}
+        </span>
+      ) : null}
       {children}
     </section>
   );

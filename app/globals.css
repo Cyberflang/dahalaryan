@@ -94,6 +94,16 @@ html {
 }
 
 /* ---------------------------------------------------------------------- */
+/* Decorative background texture (hero backdrop)                          */
+/* ---------------------------------------------------------------------- */
+
+.bg-dot-grid {
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+/* ---------------------------------------------------------------------- */
 /* Reduced motion                                                         */
 /* ---------------------------------------------------------------------- */
 

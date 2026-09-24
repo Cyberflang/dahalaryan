@@ -9,7 +9,7 @@ const facts: Array<{ label: string; value: string }> = [
 
 export function About() {
   return (
-    <Section id="about">
+    <Section id="about" index="03">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <SectionHeading eyebrow="About" title={about.lead} />
@@ -26,8 +26,15 @@ export function About() {
             <Reveal delay={240}>
               <dl className="divide-y divide-line border-y border-line text-sm">
                 {facts.map((fact) => (
-                  <div key={fact.label} className="py-4">
-                    <dt className="font-mono text-xs uppercase tracking-[0.1em] text-muted">
+                  <div
+                    key={fact.label}
+                    className="group py-4 transition-colors duration-200 sm:-mx-4 sm:px-4 sm:hover:rounded-lg sm:hover:bg-surface/50"
+                  >
+                    <dt className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-muted">
+                      <span
+                        aria-hidden="true"
+                        className="h-1 w-1 rounded-full bg-line transition-colors duration-200 group-hover:bg-accent"
+                      />
                       {fact.label}
                     </dt>
                     <dd className="mt-1.5 leading-6 text-fg">{fact.value}</dd>

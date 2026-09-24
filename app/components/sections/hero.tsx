@@ -5,7 +5,9 @@ import { HeroPanel } from "./hero-panel";
 
 export function Hero() {
   return (
-    <section className="pt-32 pb-24 sm:pt-40 sm:pb-32">
+    <section className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32">
+      <div aria-hidden="true" className="bg-dot-grid absolute inset-0 -z-10" />
+
       <div className="mx-auto max-w-5xl px-5 sm:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-[1fr_0.85fr] lg:gap-16">
           <div className="flex flex-col items-center text-center lg:order-2 lg:items-end lg:text-right">
@@ -15,7 +17,7 @@ export function Hero() {
           <div className="flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
             <p className="font-mono text-sm text-accent">{hero.subhead}</p>
 
-            <h1 className="mt-4 text-5xl font-medium leading-[1.05] tracking-[-0.03em] text-fg sm:text-6xl">
+            <h1 className="mt-4 text-5xl font-medium leading-[1.03] tracking-[-0.03em] text-fg sm:text-6xl lg:text-7xl">
               {hero.headline}
             </h1>
 

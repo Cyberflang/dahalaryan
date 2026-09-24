@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { person } from "./lib/site-data";
+import { person, siteUrl } from "./lib/site-data";
 import { ThemeProvider, themeInitScript } from "./components/theme";
 import "./globals.css";
 
@@ -13,8 +13,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-const siteUrl = "https://dahalaryan.com.np";
 
 const title = person.name;
 
@@ -79,7 +77,7 @@ const personJsonLd = {
   "@type": "Person",
   name: person.name,
   url: siteUrl,
-  jobTitle: person.role,
+  ...(person.role ? { jobTitle: person.role } : {}),
   address: {
     "@type": "PostalAddress",
     addressCountry: "NP",

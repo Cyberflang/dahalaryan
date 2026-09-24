@@ -977,7 +977,7 @@ export function searchForum(query: string, limit = 8): ForumSearchResult[] {
   const results: ForumSearchResult[] = [];
 
   for (const thread of threads) {
-    if (thread.title.toLowerCase().includes(q) || thread.tags.some((t) => t.includes(q))) {
+    if (thread.title.toLowerCase().includes(q) || thread.tags.some((t) => t.toLowerCase().includes(q))) {
       results.push({
         type: "thread",
         title: thread.title,

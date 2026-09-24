@@ -4,7 +4,7 @@ import { Container, Link, Reveal, Section, SectionHeading } from "../ui";
 
 export function Work() {
   return (
-    <Section id="work">
+    <Section id="work" index="01">
       <Container>
         <SectionHeading
           eyebrow="Work"
