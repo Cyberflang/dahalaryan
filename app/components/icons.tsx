@@ -14,14 +14,6 @@ const base = {
   "aria-hidden": true,
 };
 
-export function GithubIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.6 2.8 5.5 3.1 5.5 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.1 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" />
-    </svg>
-  );
-}
-
 export function TelegramIcon(props: IconProps) {
   return (
     <svg {...base} viewBox="0 0 24 24" fill="currentColor" stroke="none" {...props}>
@@ -104,23 +96,6 @@ export function MoonIcon(props: IconProps) {
   return (
     <svg {...base} {...props}>
       <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
-    </svg>
-  );
-}
-
-export function CopyIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <rect x="9" y="9" width="12" height="12" rx="2" />
-      <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" />
-    </svg>
-  );
-}
-
-export function CheckIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="m5 13 4 4L19 7" />
     </svg>
   );
 }

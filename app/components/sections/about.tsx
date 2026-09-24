@@ -1,9 +1,8 @@
-import { about, focus, hero, person } from "../../lib/site-data";
+import { about, focus, person } from "../../lib/site-data";
 import { Container, Reveal, Section, SectionHeading } from "../ui";
 
 const facts: Array<{ label: string; value: string }> = [
   { label: "Based in", value: person.location },
-  { label: "Works with", value: hero.stack.join(", ") },
   { label: "Learning", value: focus.learning.description },
   { label: "Interested in", value: focus.interested.description },
 ];
@@ -28,8 +27,7 @@ export function About() {
               <dl className="divide-y divide-line border-y border-line text-sm">
                 {facts.map((fact) => (
                   <div key={fact.label} className="py-4">
-                    <dt className="font-mono text-xs text-muted">
-                      <span className="text-accent">{"// "}</span>
+                    <dt className="font-mono text-xs uppercase tracking-[0.1em] text-muted">
                       {fact.label}
                     </dt>
                     <dd className="mt-1.5 leading-6 text-fg">{fact.value}</dd>

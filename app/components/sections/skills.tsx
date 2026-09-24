@@ -1,8 +1,5 @@
 import { skillGroups } from "../../lib/site-data";
-import { BlocksIcon, CodeIcon, TerminalIcon } from "../icons";
-import { Card, Container, Reveal, Section, SectionHeading } from "../ui";
-
-const groupIcons = [CodeIcon, TerminalIcon, BlocksIcon];
+import { Container, Reveal, Section, SectionHeading } from "../ui";
 
 export function Skills() {
   return (
@@ -10,34 +7,30 @@ export function Skills() {
       <Container>
         <SectionHeading
           eyebrow="Skills"
-          title="What I work with"
-          description="Tools and technologies I reach for regularly, grouped by where they show up most."
+          title="Tools I actually use"
+          description="Grouped by the kind of work each one shows up in."
         />
 
-        <div className="grid gap-5 sm:grid-cols-3">
-          {skillGroups.map((group, i) => {
-            const Icon = groupIcons[i % groupIcons.length];
-            return (
-              <Reveal key={group.title} delay={i * 90}>
-                <Card className="h-full">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10 text-accent">
-                    <Icon width={16} height={16} />
-                  </span>
-                  <h3 className="mt-4 text-base font-medium text-fg">{group.title}</h3>
-                  <ul className="mt-4 flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <li
-                        key={item}
-                        className="rounded-full border border-line px-2.5 py-1 font-mono text-[11px] text-muted"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </Reveal>
-            );
-          })}
+        <div className="grid gap-8 sm:grid-cols-3 sm:gap-6">
+          {skillGroups.map((group, i) => (
+            <Reveal key={group.title} delay={i * 80}>
+              <div className="border-t border-line pt-5">
+                <h3 className="font-mono text-xs uppercase tracking-[0.15em] text-muted">
+                  {group.title}
+                </h3>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-full border border-line px-3 py-1.5 text-sm text-fg/90"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </Container>
     </Section>

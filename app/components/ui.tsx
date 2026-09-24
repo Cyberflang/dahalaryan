@@ -11,7 +11,6 @@ import {
   type ReactNode,
 } from "react";
 import { usePrefersReducedMotion } from "../lib/use-media-query";
-import { ArrowUpRightIcon } from "./icons";
 
 // ---------------------------------------------------------------------------
 // Layout
@@ -204,57 +203,6 @@ export function Card({
 }
 
 // ---------------------------------------------------------------------------
-// IconButton
-// ---------------------------------------------------------------------------
-
-export function IconButton({
-  children,
-  label,
-  className = "",
-  ...rest
-}: ButtonHTMLAttributes<HTMLButtonElement> & { label: string }) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      className={`inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent/60 hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${className}`}
-      {...rest}
-    >
-      {children}
-    </button>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// SocialLink
-// ---------------------------------------------------------------------------
-
-export function SocialLink({
-  href,
-  label,
-  icon,
-  className = "",
-}: {
-  href: string;
-  label: string;
-  icon: ReactNode;
-  className?: string;
-}) {
-  const isExternal = href.startsWith("http");
-  return (
-    <a
-      href={href}
-      aria-label={label}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noopener noreferrer" : undefined}
-      className={`inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent/60 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${className}`}
-    >
-      {icon}
-    </a>
-  );
-}
-
-// ---------------------------------------------------------------------------
 // Reveal (scroll-triggered fade/translate-in, reduced-motion aware)
 // ---------------------------------------------------------------------------
 
@@ -309,20 +257,6 @@ export function Reveal({
     >
       {children}
     </Tag>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// External link affordance (arrow icon helper used inside cards/links)
-// ---------------------------------------------------------------------------
-
-export function ExternalArrow({ className = "" }: { className?: string }) {
-  return (
-    <ArrowUpRightIcon
-      width={14}
-      height={14}
-      className={`transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${className}`}
-    />
   );
 }
 
