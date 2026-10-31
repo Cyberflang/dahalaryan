@@ -12,8 +12,7 @@ export default function NotFound() {
         </h1>
 
         <p className="mt-4 max-w-md text-base leading-7 text-muted">
-          This route doesn&apos;t exist. Whatever you&apos;re looking for isn&apos;t here —
-          might be worth heading back home.
+          The page you&apos;re looking for doesn&apos;t exist or may have moved.
         </p>
 
         <div className="mt-8">

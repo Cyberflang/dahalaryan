@@ -3,12 +3,12 @@ import { Container, Reveal, Section, SectionHeading } from "../ui";
 
 export function Skills() {
   return (
-    <Section id="skills" index="02">
+    <Section id="skills" index="03">
       <Container>
         <SectionHeading
           eyebrow="Skills"
-          title="Tools I actually use"
-          description="Grouped by the kind of work each one shows up in."
+          title="What I work with"
+          description="The languages and tools I use most."
         />
 
         <div className="grid gap-8 sm:grid-cols-3 sm:gap-6">

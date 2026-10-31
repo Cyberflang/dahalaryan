@@ -24,7 +24,7 @@ export function Container({
   className?: string;
 }) {
   return (
-    <div className={`mx-auto w-full max-w-6xl px-5 sm:px-8 ${className}`}>
+    <div className={`mx-auto w-full max-w-[var(--content-w)] px-5 sm:px-8 ${className}`}>
       {children}
     </div>
   );
@@ -46,7 +46,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`relative py-20 sm:py-28 ${border ? "border-t border-line" : ""} ${className}`}
+      className={`relative py-[var(--section-py)] ${border ? "border-t border-line" : ""} ${className}`}
     >
       {index ? (
         <span
@@ -112,7 +112,7 @@ type ButtonVariant = "primary" | "secondary" | "ghost";
 
 const buttonVariants: Record<ButtonVariant, string> = {
   primary:
-    "bg-accent text-[#14100a] hover:bg-accent/90 border border-transparent",
+    "bg-accent text-on-accent hover:bg-accent/90 border border-transparent",
   secondary:
     "bg-transparent text-fg border border-line hover:border-accent/60 hover:text-accent",
   ghost: "bg-transparent text-muted hover:text-fg border border-transparent",
@@ -260,7 +260,7 @@ export function Reveal({
   return (
     <Tag
       ref={ref}
-      className={`transition-all duration-700 ease-out ${
+      className={`reveal transition-all duration-700 ease-out ${
         shouldShow ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
       } ${className}`}
       style={{ transitionDelay: shouldShow ? `${delay}ms` : "0ms" }}

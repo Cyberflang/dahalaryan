@@ -1,196 +1,129 @@
 // ============================================================================
-// SITE DATA
-// Central place for editable portfolio content. Update this file to change
-// copy, projects, skills, and links across the whole site.
-//
-// Anything left undefined (email, GitHub) is intentionally omitted rather
-// than filled with a placeholder — add it here when it's real, and the UI
-// will pick it up automatically.
+// SITE DATA — edit this file to change what the whole website says.
+// Hero, about, projects, skills, contact and footer all read from here.
 // ============================================================================
 
 export const person = {
-  name: "James Cyflixel",
-  shortName: "James",
-  role: "",
+  name: "Aryan Dahal",
+  shortName: "Aryan",
+  role: "Developer & Founder of Altermium",
   domain: "dahalaryan.com.np",
   location: "Nepal",
 
-  // Set this once a real address exists.
-  // The contact section and footer will show an email option automatically
-  // when it's defined.
+  // ➜ ADD YOUR REAL EMAIL HERE, e.g. email: "you@example.com".
+  //   Until it is set, the email button and the contact form stay hidden
+  //   automatically, so nothing fake is ever shown to visitors.
   email: undefined as string | undefined,
 };
 
 export const siteUrl = "https://dahalaryan.com.np";
 
-export const socials = {
-  telegram: {
-    label: "Telegram",
-    href: "https://t.me/James_Cyflixel",
+/** Community links (Discord). Add more entries and they appear everywhere. */
+export const communities = [
+  {
+    label: "Creativity",
+    description: "Join the Creativity Discord community",
+    href: "https://discord.gg/Au4Mx7CaCq",
   },
-
-  x: {
-    label: "X",
-    username: "James_Cyflixel",
-    href: "https://x.com/James_Cyflixel",
+  {
+    label: "Cyflixel",
+    description: "Join the Cyflixel Discord community",
+    href: "https://discord.gg/KwAmfyJsKp",
   },
-};
+];
 
 export const nav = [
-  {
-    label: "Work",
-    href: "#work",
-  },
-  {
-    label: "About",
-    href: "#about",
-  },
-  {
-    label: "Contact",
-    href: "#contact",
-  },
-  {
-    label: "Forums",
-    href: "/forums",
-  },
+  { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "Contact", href: "#contact" },
+  { label: "Forum", href: "/forums" },
 ];
 
 export const hero = {
-  headline: "James Cyflixel",
-
-  subhead: "Developer, based in Nepal.",
-
+  eyebrow: "Developer & Founder · Nepal",
+  headline: "Aryan Dahal",
   description:
-    "I build web applications, Discord bots, and the community infrastructure around them — mostly TypeScript, Next.js, and Node.js. Right now that's Cyflixel's bot, its forums, and the Minecraft server systems behind it.",
-
-  stack: [
-    "TypeScript",
-    "Next.js",
-    "Node.js",
-    "Discord.js",
-  ],
+    "I build web applications, Discord bots and Minecraft server systems — and I run Altermium, the organization behind the Creativity and Cyflixel communities.",
+  stack: ["TypeScript", "Next.js", "Node.js", "Discord.js", "Java"],
 };
 
-export type ProjectCategory =
-  | "Web"
-  | "Discord"
-  | "Minecraft";
-
-export const projects: Array<{
+export type Project = {
   title: string;
-  category: ProjectCategory;
-  year: string;
+  type: string;
   description: string;
   tech: string[];
-  status: "Active" | "In progress";
   href?: string;
-}> = [
-  {
-    title: "Cyflixel Bot",
-    category: "Discord",
-    year: "2026",
-    description:
-      "A Discord bot for the Cyflixel community — moderation, ticket handling, and day-to-day server automation.",
-    tech: [
-      "Discord.js",
-      "Node.js",
-    ],
-    status: "Active",
-  },
+};
 
+export const projects: Project[] = [
   {
-    title: "Cyflixel Forums",
-    category: "Web",
-    year: "2026",
+    title: "Altermium",
+    type: "Organization",
     description:
-      "A forum platform for the Cyflixel community: categories, threads, profiles, and reactions, built as part of this site.",
-    tech: [
-      "Next.js",
-      "TypeScript",
-    ],
-    status: "Active",
-    href: "/forums",
+      "The organization I founded. It brings the Creativity and Cyflixel Discord communities together under one professional home.",
+    tech: ["Community", "Web", "Brand"],
   },
-
   {
-    title: "Minecraft Server Systems",
-    category: "Minecraft",
-    year: "2026",
+    title: "Creativity Bot",
+    type: "Discord bot",
     description:
-      "Server infrastructure and gameplay systems for Cyflixel's Minecraft network.",
-    tech: [
-      "Java",
-      "Server infrastructure",
-    ],
-    status: "Active",
+      "A public Discord bot with slash commands, built for the Creativity community.",
+    tech: ["Discord.js", "Node.js"],
+  },
+  {
+    title: "Cyflixel BedWars",
+    type: "Minecraft plugin",
+    description:
+      "A custom Hypixel-style BedWars plugin for Minecraft 1.8.8, developed in phases.",
+    tech: ["Java", "Spigot"],
+  },
+  {
+    title: "Yuna",
+    type: "Discord bot",
+    description:
+      "A love-themed Discord bot with a virtual economy, plus its Terms of Service and Privacy Policy website.",
+    tech: ["Discord.js", "Vercel"],
   },
 ];
 
-// Derived from `projects` above (one group per project category) so this
-// stays in sync with the tech actually listed there instead of duplicating it.
-export const skillGroups: Array<{ title: string; items: string[] }> = (
-  ["Web", "Discord", "Minecraft"] as ProjectCategory[]
-).map((category) => ({
-  title:
-    category === "Discord"
-      ? "Discord & Backend"
-      : category === "Minecraft"
-        ? "Minecraft & Systems"
-        : category,
-
-  items: Array.from(
-    new Set(
-      projects
-        .filter((project) => project.category === category)
-        .flatMap((project) => project.tech),
-    ),
-  ),
-}));
+export const skillGroups: Array<{ title: string; items: string[] }> = [
+  {
+    title: "Web",
+    items: ["TypeScript", "JavaScript", "Next.js", "React", "Tailwind CSS", "Vercel"],
+  },
+  {
+    title: "Bots & Backend",
+    items: ["Node.js", "Discord.js", "Slash commands", "Supabase"],
+  },
+  {
+    title: "Minecraft",
+    items: ["Java", "Spigot plugins", "Server systems"],
+  },
+];
 
 export const about = {
-  lead:
-    "I'm a developer who likes figuring out how things work, then building better versions of them.",
-
+  lead: "Developer from Nepal. I turn ideas into things people actually use.",
   paragraphs: [
-    "Most of my time goes into software — web applications, Discord bots, and the systems that hold communities together. I like taking a rough idea and turning it into something people can actually use, even when it starts small.",
-
-    "Communities are a big part of what I build. That means thinking about both sides of it: the technical side — moderation tools, automation, infrastructure — and the small details that make a space feel put together.",
-
-    "I learn mostly by building and fixing what breaks along the way.",
+    "I'm Aryan Dahal, a developer based in Nepal. Most of what I build is web applications, Discord bots and Minecraft server software.",
+    "I'm the founder of Altermium, the organization behind the Creativity and Cyflixel Discord communities. Running communities means I care about both sides of the work: the code, and the experience people have when they use it.",
+    "I learn by building and fixing what breaks. If you have an idea you'd like to build, or a project that needs a developer, get in touch.",
   ],
 };
 
-export const focus = {
-  building: {
-    title: "Building",
-
-    description:
-      "Cyflixel Bot, Cyflixel Forums, and the Minecraft server systems behind the Cyflixel community.",
-  },
-
-  learning: {
-    title: "Learning",
-
-    description:
-      "Backend architecture and server infrastructure — going deeper past the parts I already know.",
-  },
-
-  interested: {
-    title: "Interested in",
-
-    description:
-      "Community platform design, automation, and the infrastructure that keeps online spaces running well.",
-  },
-};
+export const facts: Array<{ label: string; value: string }> = [
+  { label: "Name", value: person.name },
+  { label: "Based in", value: person.location },
+  { label: "Role", value: "Founder, Altermium" },
+  { label: "Works with", value: "TypeScript, Next.js, Node.js, Discord.js, Java" },
+];
 
 export const contact = {
-  headline: "Let's build something useful.",
-
+  headline: "Let's work together.",
   subtext:
-    "Reach me through Telegram or X.",
+    "Have a project, a question or an idea? Reach out — or come say hello in one of the communities.",
 };
 
 export const footer = {
-  description:
-    "Developer building software, tools, and communities.",
+  description: "Developer and founder building software, tools and communities.",
 };

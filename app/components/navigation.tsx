@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { nav, person, socials } from "../lib/site-data";
-import { CloseIcon, MenuIcon, TelegramIcon } from "./icons";
-import { ThemeToggle } from "./theme";
+import { nav, person } from "../lib/site-data";
+import { CloseIcon, MenuIcon } from "./icons";
+import { ThemeToggle } from "./preferences";
 import { Link } from "./ui";
 
 export function Navigation() {
@@ -22,8 +23,7 @@ export function Navigation() {
   }, []);
 
   useEffect(() => {
-    // Scroll-spy only applies to on-page anchor links (e.g. "#work"), not
-    // standalone routes like "/forums".
+    // Scroll-spy only applies to on-page anchors (e.g. "#projects").
     if (!onHomePage) return;
 
     const sections = nav
@@ -36,9 +36,7 @@ export function Navigation() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(`#${entry.target.id}`);
-          }
+          if (entry.isIntersecting) setActiveId(`#${entry.target.id}`);
         });
       },
       { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
@@ -55,6 +53,9 @@ export function Navigation() {
     };
   }, [menuOpen]);
 
+  const hrefFor = (href: string) =>
+    onHomePage || !href.startsWith("#") ? href : `/${href}`;
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
@@ -65,12 +66,19 @@ export function Navigation() {
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8"
+        className="mx-auto flex h-16 max-w-[var(--content-w)] items-center justify-between px-5 sm:px-8"
       >
         <Link
           href="/"
-          className="font-mono text-sm font-medium tracking-tight text-fg transition-opacity hover:opacity-70"
+          className="flex items-center gap-2.5 text-sm font-medium tracking-tight text-fg transition-opacity hover:opacity-80"
         >
+          <Image
+            src="/images/logo-a.png"
+            alt=""
+            width={28}
+            height={28}
+            className="h-7 w-7 rounded-lg"
+          />
           {person.name}
         </Link>
 
@@ -84,7 +92,7 @@ export function Navigation() {
               return (
                 <li key={item.href}>
                   <Link
-                    href={onHomePage || isPageLink ? item.href : `/${item.href}`}
+                    href={hrefFor(item.href)}
                     className={`relative py-1 transition-colors hover:text-fg ${
                       isActive ? "text-fg" : ""
                     }`}
@@ -100,17 +108,6 @@ export function Navigation() {
               );
             })}
           </ul>
-
-          <a
-            href={socials.telegram.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${socials.telegram.label} (opens in a new tab)`}
-            className="inline-flex items-center gap-2 rounded-full border border-line px-3.5 py-1.5 text-sm text-muted transition-colors hover:border-accent/60 hover:text-accent"
-          >
-            <TelegramIcon width={14} height={14} />
-            Telegram
-          </a>
 
           <ThemeToggle />
         </div>
@@ -137,33 +134,17 @@ export function Navigation() {
         }`}
       >
         <ul className="flex flex-col gap-1 px-5 py-4">
-          {nav.map((item) => {
-            const isPageLink = !item.href.startsWith("#");
-            return (
-              <li key={item.href}>
-                <Link
-                  href={onHomePage || isPageLink ? item.href : `/${item.href}`}
-                  onClick={() => setMenuOpen(false)}
-                  className="block rounded-lg px-3 py-3 text-base text-fg transition-colors hover:bg-surface"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-          <li>
-            <a
-              href={socials.telegram.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${socials.telegram.label} (opens in a new tab)`}
-              onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-2 rounded-lg px-3 py-3 text-base text-fg transition-colors hover:bg-surface"
-            >
-              <TelegramIcon width={16} height={16} />
-              Telegram
-            </a>
-          </li>
+          {nav.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={hrefFor(item.href)}
+                onClick={() => setMenuOpen(false)}
+                className="block rounded-lg px-3 py-3 text-base text-fg transition-colors hover:bg-surface"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </header>

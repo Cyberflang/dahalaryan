@@ -1,142 +1,93 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
-import {
-  categoryGroups,
-  getFeaturedThreads,
-  getForumStats,
-  getUser,
-} from "../lib/forum-data";
+import { categories, getLatestThreads, getThreadsByCategory } from "../lib/forum-data";
 import { ForumShell } from "../components/forum/forum-shell";
-import { CategoryGroup } from "../components/forum/category-group";
 import { ForumSearch } from "../components/forum/forum-search";
-import { Breadcrumbs } from "../components/forum/forum-ui";
-import { ArrowRightIcon, EyeIcon, MessageIcon, PlusIcon, SparkIcon, UsersIcon } from "../components/icons";
-import { Badge, Button, Card, Container, Link, Reveal } from "../components/ui";
+import { Breadcrumbs, DiscussCard, formatDate } from "../components/forum/forum-ui";
+import { Container, Link } from "../components/ui";
 
 export const metadata: Metadata = {
-  title: "Cyflixel Forums",
-  description:
-    "News, discussion, suggestions, and community threads for the Cyflixel network.",
+  title: "Forum",
+  description: "Updates, project notes and community information from Aryan Dahal.",
 };
 
 export default function ForumsPage() {
-  const stats = getForumStats();
-  const featured = getFeaturedThreads(3);
+  const latest = getLatestThreads(5);
 
   return (
     <ForumShell>
       <Container className="pb-24 pt-10 sm:pt-14">
-        <Breadcrumbs items={[{ label: "Forums" }]} />
+        <Breadcrumbs items={[{ label: "Forum" }]} />
 
-        <div className="mt-5 flex flex-col gap-8 border-b border-line pb-10 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mt-6 flex flex-col gap-6 border-b border-line pb-10 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <Badge dot className="mb-4">
-              {stats.onlineNow} online now
-            </Badge>
-            <h1 className="text-3xl font-medium tracking-tight text-fg sm:text-4xl">
-              Cyflixel Forums
-            </h1>
+            <h1 className="text-3xl font-medium tracking-tight text-fg sm:text-4xl">Forum</h1>
             <p className="mt-3 max-w-xl text-base leading-7 text-muted">
-              News, discussion, and everything the Cyflixel community is building —
-              organized, searchable, and open to everyone on the network.
+              Updates, project notes and community information. For live conversation, join us on
+              Discord.
             </p>
           </div>
-
-          <div className="flex shrink-0 gap-3">
-            <Button href="/forums/new" variant="primary">
-              <PlusIcon width={15} height={15} />
-              Create Thread
-            </Button>
-            <Button href="/forums/new-posts" variant="secondary">
-              New Posts
-            </Button>
-          </div>
+          <ForumSearch className="w-full sm:max-w-xs" />
         </div>
 
-        <div className="mt-8 flex flex-col gap-6 lg:flex-row">
-          <ForumSearch className="w-full lg:max-w-xl" />
-
-          <div className="flex flex-wrap gap-6 text-sm sm:gap-8">
-            <StatBlock icon={<MessageIcon width={15} height={15} />} value={stats.totalThreads} label="Threads" />
-            <StatBlock icon={<SparkIcon width={15} height={15} />} value={stats.totalPosts} label="Posts" />
-            <StatBlock icon={<UsersIcon width={15} height={15} />} value={stats.totalMembers} label="Members" />
-          </div>
-        </div>
-
-        {featured.length > 0 ? (
-          <Reveal className="mt-12">
-            <h2 className="mb-3 font-mono text-xs font-medium uppercase tracking-[0.2em] text-accent">
-              Featured Discussions
-            </h2>
-            <div className="grid gap-3 sm:grid-cols-3">
-              {featured.map((thread) => {
-                const author = getUser(thread.authorUsername);
-                return (
-                  <Card key={thread.slug} className="p-4">
-                    <Link
-                      href={`/forums/${thread.categorySlug}/${thread.slug}`}
-                      className="absolute inset-0 z-0 rounded-2xl"
-                      aria-label={thread.title}
-                    />
-                    <p className="relative z-10 line-clamp-2 text-sm font-medium text-fg group-hover:text-accent">
-                      {thread.title}
-                    </p>
-                    <div className="relative z-10 mt-3 flex items-center justify-between text-xs text-muted">
-                      <span>{author?.displayName ?? thread.authorUsername}</span>
-                      <span className="flex items-center gap-1.5">
-                        <EyeIcon width={12} height={12} />
-                        {thread.views}
-                      </span>
-                    </div>
-                  </Card>
-                );
-              })}
-            </div>
-          </Reveal>
-        ) : null}
-
-        <div className="mt-14 flex flex-col gap-12">
-          {categoryGroups.map((group) => (
-            <Reveal key={group.id}>
-              <CategoryGroup group={group} />
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-14 flex flex-col items-center gap-3 rounded-2xl border border-line bg-surface/40 p-8 text-center">
-          <p className="text-sm text-muted">
-            Looking for a specific member? Every profile lives at{" "}
-            <span className="font-mono text-fg">/forums/u/[username]</span>.
-          </p>
-          <Link
-            href="/forums/u/aryan"
-            className="inline-flex items-center gap-1.5 font-mono text-xs text-accent transition-opacity hover:opacity-70"
+        <section aria-labelledby="categories" className="mt-10">
+          <h2
+            id="categories"
+            className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-muted"
           >
-            View an example profile
-            <ArrowRightIcon width={13} height={13} />
-          </Link>
+            Categories
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {categories.map((category) => {
+              const count = getThreadsByCategory(category.slug).length;
+              return (
+                <Link
+                  key={category.slug}
+                  href={`/forums/${category.slug}`}
+                  className="group rounded-2xl border border-line bg-surface/60 p-5 transition-colors hover:border-accent/40"
+                >
+                  <h3 className="text-base font-medium text-fg group-hover:text-accent">
+                    {category.name}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-6 text-muted">{category.description}</p>
+                  <p className="mt-4 font-mono text-xs text-muted">
+                    {count} {count === 1 ? "post" : "posts"}
+                  </p>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        <section aria-labelledby="latest" className="mt-12">
+          <h2
+            id="latest"
+            className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-muted"
+          >
+            Latest posts
+          </h2>
+          <ul className="divide-y divide-line border-y border-line">
+            {latest.map((thread) => (
+              <li key={thread.slug}>
+                <Link
+                  href={`/forums/${thread.categorySlug}/${thread.slug}`}
+                  className="group flex items-center justify-between gap-4 py-4"
+                >
+                  <span className="text-sm text-fg transition-colors group-hover:text-accent">
+                    {thread.title}
+                  </span>
+                  <span className="shrink-0 font-mono text-xs text-muted">
+                    {formatDate(thread.createdAt)}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <div className="mt-12">
+          <DiscussCard />
         </div>
       </Container>
     </ForumShell>
-  );
-}
-
-function StatBlock({
-  icon,
-  value,
-  label,
-}: {
-  icon: ReactNode;
-  value: number;
-  label: string;
-}) {
-  return (
-    <div className="flex items-center gap-2">
-      <span className="text-accent">{icon}</span>
-      <div>
-        <p className="font-mono text-sm font-medium text-fg">{value.toLocaleString()}</p>
-        <p className="text-[11px] text-muted">{label}</p>
-      </div>
-    </div>
   );
 }

@@ -14,25 +14,31 @@ const base = {
   "aria-hidden": true,
 };
 
-export function TelegramIcon(props: IconProps) {
+export function DiscordIcon(props: IconProps) {
   return (
-    <svg {...base} viewBox="0 0 24 24" fill="currentColor" stroke="none" {...props}>
-      <path d="M21.5 3.5 2.7 11c-.9.35-.9 1.63.02 1.95l4.4 1.5 1.7 5.3c.2.63 1 .82 1.47.35l2.5-2.5 4.4 3.25c.7.5 1.7.13 1.9-.7l3.3-14.7c.2-.9-.7-1.65-1.4-1.4Zm-3.4 3.3-8.4 7.5-.3 3.1-1.4-4.3 10-6.9c.2-.15.4.1.1.6Z" />
+    <svg {...base} fill="currentColor" stroke="none" {...props}>
+      <path d="M19.27 5.33A17.2 17.2 0 0 0 15 4a12 12 0 0 0-.55 1.13 16 16 0 0 0-4.9 0A12 12 0 0 0 9 4a17.2 17.2 0 0 0-4.27 1.33C2.03 9.37 1.3 13.3 1.66 17.17A17.3 17.3 0 0 0 6.9 19.8c.42-.57.8-1.18 1.12-1.82-.62-.23-1.2-.52-1.75-.86.15-.11.29-.22.43-.34a12.3 12.3 0 0 0 10.6 0c.14.12.28.23.43.34-.55.34-1.13.63-1.75.86.32.64.7 1.25 1.12 1.82a17.3 17.3 0 0 0 5.24-2.63c.43-4.49-.73-8.38-3.07-11.84ZM8.68 14.8c-1.02 0-1.86-.94-1.86-2.1 0-1.15.82-2.1 1.86-2.1 1.04 0 1.88.95 1.86 2.1 0 1.16-.82 2.1-1.86 2.1Zm6.64 0c-1.02 0-1.86-.94-1.86-2.1 0-1.15.82-2.1 1.86-2.1 1.04 0 1.88.95 1.86 2.1 0 1.16-.82 2.1-1.86 2.1Z" />
     </svg>
   );
 }
 
-export function TwitterIcon(props: IconProps) {
+export function SlidersIcon(props: IconProps) {
   return (
     <svg {...base} {...props}>
-      <path d="M4 4l7.5 9.6L4.4 20H6l6.4-5.6L17.9 20H21l-8-10.2L19.6 4H18l-5.9 5.2L7.1 4H4Z" />
+      <path d="M4 7h10M18 7h2M4 17h2M10 17h10" />
+      <circle cx="16" cy="7" r="2" />
+      <circle cx="8" cy="17" r="2" />
     </svg>
   );
 }
 
-// Alias — the glyph above is the current X mark, kept under both names so
-// call sites can use whichever reads more clearly.
-export const XIcon = TwitterIcon;
+export function CheckIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="m5 12.5 4.5 4.5L19 7.5" />
+    </svg>
+  );
+}
 
 export function MailIcon(props: IconProps) {
   return (

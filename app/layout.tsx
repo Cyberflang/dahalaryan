@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { person, siteUrl } from "./lib/site-data";
-import { ThemeProvider, themeInitScript } from "./components/theme";
+import { CustomizeButton, prefsInitScript } from "./components/preferences";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,10 +14,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const title = person.name;
+const title = `${person.name} — Developer & Founder`;
 
 const description =
-  "I build digital experiences, software, and communities — web applications, Discord bots, and the systems that hold it all together.";
+  "Aryan Dahal is a developer from Nepal who builds web applications, Discord bots and Minecraft server systems, and founder of Altermium.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -35,14 +35,14 @@ export const metadata: Metadata = {
     siteName: person.name,
     type: "website",
     locale: "en_US",
-    images: ["/images/james.png"],
+    images: ["/images/aryan-square.jpg"],
   },
 
   twitter: {
     card: "summary",
     title: title,
     description: description,
-    images: ["/images/james.png"],
+    images: ["/images/aryan-square.jpg"],
   },
 
   robots: {
@@ -50,13 +50,6 @@ export const metadata: Metadata = {
     follow: true,
   },
 
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: "/apple-touch-icon.png",
-  },
 };
 
 export const viewport = {
@@ -78,6 +71,8 @@ const personJsonLd = {
   name: person.name,
   url: siteUrl,
   ...(person.role ? { jobTitle: person.role } : {}),
+  image: `${siteUrl}/images/aryan-square.jpg`,
+  worksFor: { "@type": "Organization", name: "Altermium" },
   address: {
     "@type": "PostalAddress",
     addressCountry: "NP",
@@ -96,7 +91,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: themeInitScript,
+            __html: prefsInitScript,
           }}
         />
 
@@ -109,7 +104,8 @@ export default function RootLayout({
       </head>
 
       <body className="flex min-h-full flex-col bg-bg font-sans text-fg">
-        <ThemeProvider>{children}</ThemeProvider>
+        {children}
+        <CustomizeButton />
       </body>
     </html>
   );

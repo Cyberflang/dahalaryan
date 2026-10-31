@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aryan Dahal — personal website
 
-## Getting Started
+Built with Next.js (static export) and Tailwind CSS. Deployed to GitHub Pages
+by `.github/workflows/deploy.yml` on every push to `main`.
 
-First, run the development server:
+## Edit your content
+
+Almost everything lives in **`app/lib/site-data.ts`**:
+
+- `person.email` — **set your real email here.** The email button and the
+  contact form appear automatically once it is filled in.
+- `communities` — Discord links shown in the hero, contact section and footer.
+- `hero`, `about`, `facts`, `projects`, `skillGroups` — the text on the home page.
+
+Forum posts live in `app/lib/forum-data.ts` (add an entry to `threads`).
+
+## Visitor customization
+
+The "Customize" button (bottom-left) lets visitors change theme, accent colour,
+font, text size, corners, spacing, page width, background and animations.
+Choices are stored in the visitor's browser. Code: `app/components/preferences.tsx`.
+
+## Icons and photos
+
+- Website icon: `app/icon.png`, `app/apple-icon.png`, `app/favicon.ico`
+  (plus `public/icon-32.png`, `public/icon-192.png`, `public/apple-touch-icon.png`)
+- Hero photo: `public/images/aryan-portrait.jpg`
+
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
